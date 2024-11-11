@@ -28,11 +28,10 @@ public class Philosopher extends Thread{
         while (counter>0) {
             try {
                 sem.acquire();
+                Thread.sleep(rand.nextInt(1, 3)*1000L);
                 eat();
                 sem.release();
-                Thread.sleep(rand.nextInt(1, 3)*1000L);
                 think();
-                Thread.sleep(rand.nextInt(1, 3)*1000L);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -43,15 +42,15 @@ public class Philosopher extends Thread{
     private void think() throws InterruptedException{
         System.out.println(getName()+" думает.");
         Thread.sleep(rand.nextInt(1, 3)*1000L);
-
     }
 
-    private void eat() {
+    private void eat() throws InterruptedException {
         for (Fork fork: forkList) {
             if (!fork.takeFork(getName())) {
                 return;
             }
         }
+        Thread.sleep(rand.nextInt(1, 3)*1000L);
         System.out.println(getName()+" ест.");
         for (Fork fork: forkList) {
             fork.putFork(getName());

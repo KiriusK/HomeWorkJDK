@@ -1,6 +1,5 @@
 package homework_5.variant_2;
 
-import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ForkSyncList extends CopyOnWriteArrayList<Fork> {
